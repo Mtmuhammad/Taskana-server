@@ -11,7 +11,7 @@ const { NotFoundError } = require("./expressError");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser")
 // const usersRoutes = require("./routes/users")
-// const authRoutes = require("./routes/auth")
+const authRoutes = require("./routes/auth")
 // const projectRoutes = require("./routes/projects")
 // const taskRoutes = require("./routes/tasks")
 // const ticketRoutes = require("./routes/tickets")
@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: false}));
 //middleware for cookies
 app.use(cookieParser())
 
-// app.use("/auth", authRoutes)
+app.use("/auth", authRoutes)
 
 // custom middleware to authenticate JSON Web Tokens
 // app.use(authenticateJWT)

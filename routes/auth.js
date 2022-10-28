@@ -1,0 +1,161 @@
+"use strict";
+
+/** Routes for authentication */
+
+const jsonschema = require("jsonschema");
+const jwt = require("jsonwebtoken");
+const User = require("../models/user");
+const express = require("express");
+const router = new express.Router();
+const { createToken, createRefreshToken } = require("../helpers/tokens");
+const userLoginSchema = require("../schemas/userLogin.json");
+const userRegisterSchema = require("../schemas/userRegister.json");
+const {
+  BadRequestError,
+  UnauthorizedError,
+  ForbiddenError,
+} = require("../expressError");
+
+/** POST /auth/login: {email, password} => {token}
+ *
+ * Creates an accessToken and refreshToken saved in a "jwt" cookie.
+ *
+ * Saves refreshToken to database and returns accessToken for login.
+ *
+ * Authorization required: none
+ */
+
+router.post("/login", async (req, res, next) => {
+  try {
+    // validate input data
+    const validator = jsonschema.validate(req.body, userLoginSchema);
+    if (!validator) {
+      const errs = validator.errors.map((e) => e.stack);
+      throw new BadRequestError(errs);
+    }
+
+    const { email, password } = req.body;
+    const user = await User.authenticate(email, password);
+    const accessToken = createToken(user);
+    const refreshToken = createRefreshToken(user);
+    await User.saveRefreshToken(user.empNumber, refreshToken);
+
+    res.cookie("jwt", refreshToken, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 24 * 1000,
+      secure: true,
+      sameSite: "None",
+    });
+
+    return res.json({ user, token: accessToken });
+  } catch (err) {
+    return next(err);
+  }
+});
+
+/** POST /auth/register: {user} => {token}
+ *
+ * user must include {firstName, lastName, email, password, empRole}
+ *
+ * Creates an accessToken and refreshToken saved in a "jwt" cookie.
+ *
+ * Saves refreshToken to database and returns accessToken for login.
+ *
+ * Authorization required: none
+ */
+
+router.post("/register", async (req, res, next) => {
+  try {
+    const validator = jsonschema.validate(req.body, userRegisterSchema);
+    if (!validator.valid) {
+      const errs = validator.errors.map((e) => e.stack);
+      throw new BadRequestError(errs);
+    }
+
+    const newUser = await User.register({ ...req.body, isAdmin: false });
+    const accessToken = createToken(newUser);
+    const refreshToken = createRefreshToken(newUser);
+    await User.saveRefreshToken(newUser.empNumber, refreshToken);
+
+    res.cookie("jwt", refreshToken, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 24 * 1000,
+      secure: true,
+      sameSite: "None",
+    });
+
+    return res
+      .status(201)
+      .json({ user: newUser, token: accessToken });
+  } catch (err) {
+    return next(err);
+  }
+});
+
+/** GET  /auth/refresh: => {token}
+ *
+ * Looks for "jwt" cookie in request that has signed user info
+ *
+ * Returns JWT token from
+ *
+ * Authorization required: a signed refresh token must be provided with correct
+ * info from user in database.
+ */
+
+router.get("/refresh", async (req, res, next) => {
+  try {
+    const cookies = req.cookies;
+    if (!cookies?.jwt) throw new UnauthorizedError();
+    const refreshToken = cookies.jwt;
+
+    const foundUser = await User.findToken(refreshToken);
+
+    jwt.verify(
+      refreshToken,
+      process.env.REFRESH_TOKEN_SECRET,
+      (err, decoded) => {
+        if (err || foundUser.empNumber !== decoded.empNumber)
+          throw new ForbiddenError();
+        const accessToken = createToken(foundUser);
+        res
+          .status(202)
+          .json({ isAdmin: foundUser.isAdmin, token: accessToken });
+      }
+    );
+  } catch (err) {
+    return next(err);
+  }
+});
+
+/** GET /auth/logout: => {message}
+ *
+ * Looks for "jwt" cookie in request that has signed user info
+ *
+ * Removes user refresh token from database, and clears cookie from requests.
+ *
+ * Authorization required: a signed refresh token must be provided with correct
+ * info from user in database.
+ */
+
+router.get("/logout", async (req, res, next) => {
+  try {
+    const cookies = req.cookies;
+    if (!cookies?.jwt) return res.sendStatus(204);
+    const refreshToken = cookies.jwt;
+
+    const foundUser = await User.findToken(refreshToken);
+
+    await User.removeRefreshToken(foundUser.empNumber);
+    res.clearCookie("jwt", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+    });
+    return res.status(200).json({
+      Message: `User number ${foundUser.empNumber} logged out successfully!`,
+    });
+  } catch (err) {
+    return next(err);
+  }
+});
+module.exports = router;
