@@ -7,14 +7,14 @@ const cors = require("cors");
 
 const { NotFoundError } = require("./expressError");
 
-const {authenticateJWT} = require("./middleware/auth")
+// const {authenticateJWT} = require("./middleware/auth")
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser")
-const usersRoutes = require("./routes/users")
-const authRoutes = require("./routes/auth")
-const projectRoutes = require("./routes/projects")
-const taskRoutes = require("./routes/tasks")
-const ticketRoutes = require("./routes/tickets")
+// const usersRoutes = require("./routes/users")
+// const authRoutes = require("./routes/auth")
+// const projectRoutes = require("./routes/projects")
+// const taskRoutes = require("./routes/tasks")
+// const ticketRoutes = require("./routes/tickets")
 
 const app = express();
 //middleware logger
@@ -32,15 +32,15 @@ app.use(express.urlencoded({ extended: false}));
 //middleware for cookies
 app.use(cookieParser())
 
-app.use("/auth", authRoutes)
+// app.use("/auth", authRoutes)
 
 // custom middleware to authenticate JSON Web Tokens
-app.use(authenticateJWT)
+// app.use(authenticateJWT)
 
-app.use("/users", usersRoutes)
-app.use("/projects", projectRoutes)
-app.use("/tasks", taskRoutes)
-app.use("/tickets", ticketRoutes)
+// app.use("/users", usersRoutes)
+// app.use("/projects", projectRoutes)
+// app.use("/tasks", taskRoutes)
+// app.use("/tickets", ticketRoutes)
 
 /** Handle 404 errors -- this matches everything */
 app.use((req, res, next) => {
