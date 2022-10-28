@@ -1,0 +1,41 @@
+CREATE TABLE users (
+   emp_number SERIAL PRIMARY KEY,
+   first_name TEXT NOT NULL,
+   last_name TEXT NOT NULL,
+   email TEXT NOT NULL UNIQUE CHECK (position('@' IN email) > 1),
+   password TEXT NOT NULL,
+   emp_role TEXT NOT NULL,
+   is_admin BOOLEAN NOT NULL DEFAULT FALSE,
+   token TEXT DEFAULT NULL
+);
+
+CREATE TABLE projects (
+   id SERIAL PRIMARY KEY,
+   name TEXT UNIQUE NOT NULL,
+   description TEXT NOT NULL,
+   date DATE NOT NULL DEFAULT CURRENT_DATE,
+   deadline DATE NOT NULL,
+   status TEXT NOT NULL DEFAULT 'Open',
+   manager INTEGER NOT NULL REFERENCES users ON DELETE CASCADE
+);
+CREATE TABLE tasks (
+   id SERIAL PRIMARY KEY,
+   title TEXT NOT NULL,
+   description TEXT,
+   status TEXT NOT NULL DEFAULT 'Open',
+   important BOOLEAN NOT NULL DEFAULT FALSE,
+   date DATE NOT NULL DEFAULT CURRENT_DATE,
+   created_by INTEGER NOT NULL REFERENCES users ON DELETE CASCADE
+);
+CREATE TABLE tickets (
+   id SERIAL PRIMARY KEY,
+   title TEXT NOT NULL,
+   description TEXT NOT NULL,
+   status TEXT NOT NULL DEFAULT 'Open', 
+   date DATE NOT NULL DEFAULT CURRENT_DATE,
+   project_id INTEGER REFERENCES projects ON DELETE CASCADE,
+   created_by INTEGER NOT NULL REFERENCES users ON DELETE CASCADE,
+   assigned_to INTEGER REFERENCES users ON DELETE CASCADE DEFAULT NULL
+);
+
+ALTER SEQUENCE users_emp_number_seq restart with 100;
