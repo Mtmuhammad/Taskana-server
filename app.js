@@ -7,10 +7,10 @@ const cors = require("cors");
 
 const { NotFoundError } = require("./expressError");
 
-// const {authenticateJWT} = require("./middleware/auth")
+const {authenticateJWT} = require("./middleware/auth")
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser")
-// const usersRoutes = require("./routes/users")
+const usersRoutes = require("./routes/users")
 const authRoutes = require("./routes/auth")
 // const projectRoutes = require("./routes/projects")
 // const taskRoutes = require("./routes/tasks")
@@ -35,9 +35,9 @@ app.use(cookieParser())
 app.use("/auth", authRoutes)
 
 // custom middleware to authenticate JSON Web Tokens
-// app.use(authenticateJWT)
+app.use(authenticateJWT)
 
-// app.use("/users", usersRoutes)
+app.use("/users", usersRoutes)
 // app.use("/projects", projectRoutes)
 // app.use("/tasks", taskRoutes)
 // app.use("/tickets", ticketRoutes)
