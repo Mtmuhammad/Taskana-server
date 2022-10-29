@@ -13,7 +13,7 @@ const cookieParser = require("cookie-parser")
 const usersRoutes = require("./routes/users")
 const authRoutes = require("./routes/auth")
 const projectRoutes = require("./routes/projects")
-// const taskRoutes = require("./routes/tasks")
+const taskRoutes = require("./routes/tasks")
 // const ticketRoutes = require("./routes/tickets")
 
 const app = express();
@@ -39,7 +39,7 @@ app.use(authenticateJWT)
 
 app.use("/users", usersRoutes)
 app.use("/projects", projectRoutes)
-// app.use("/tasks", taskRoutes)
+app.use("/tasks", taskRoutes)
 // app.use("/tickets", ticketRoutes)
 
 /** Handle 404 errors -- this matches everything */
