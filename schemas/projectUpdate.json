@@ -1,0 +1,23 @@
+{
+   "$schema": "https://json-schema.org/draft/2019-09/schema",
+   "$id": "http://example.com/example.json",
+   "type": "object",
+   "required": [],
+   "properties": {
+       "name": {
+           "type": "string",
+           "minLength": "1",
+           "maxLength": "20"
+       },
+       "description": {
+           "type": "string",
+           "minLength": "1"
+       },
+       "deadline": {
+           "type": "string"
+       },
+       "status": {
+           "type": "string"
+       }
+   }
+}
