@@ -39,6 +39,7 @@ router.post("/login", async (req, res, next) => {
     const accessToken = createToken(user);
     const refreshToken = createRefreshToken(user);
     await User.saveRefreshToken(user.empNumber, refreshToken);
+    const role = user.isAdmin ? 1990 : 2022;
 
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
@@ -47,7 +48,7 @@ router.post("/login", async (req, res, next) => {
       sameSite: "None",
     });
 
-    return res.json({ user, token: accessToken });
+    return res.json({ role, user, token: accessToken });
   } catch (err) {
     return next(err);
   }
@@ -76,6 +77,7 @@ router.post("/register", async (req, res, next) => {
     const accessToken = createToken(newUser);
     const refreshToken = createRefreshToken(newUser);
     await User.saveRefreshToken(newUser.empNumber, refreshToken);
+    const role = newUser.isAdmin ? 1990 : 2022;
 
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
@@ -86,7 +88,7 @@ router.post("/register", async (req, res, next) => {
 
     return res
       .status(201)
-      .json({ user: newUser, token: accessToken });
+      .json({ role, user: newUser, token: accessToken });
   } catch (err) {
     return next(err);
   }

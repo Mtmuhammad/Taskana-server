@@ -35,6 +35,7 @@ describe("POST /auth/login", () => {
     );
     expect(tokenRes.rows.length).toEqual(1);
     expect(res.body).toEqual({
+      role: 2022,
       user: {
         email: "u1@yahoo.com",
         empNumber: 101,
@@ -59,6 +60,7 @@ describe("POST /auth/login", () => {
     );
     expect(tokenRes.rows.length).toEqual(1);
     expect(res.body).toEqual({
+      role: 1990,
       user: {
         email: "admintest@email.com",
         empNumber: 100,
@@ -120,6 +122,7 @@ describe("POST /auth/register", () => {
     expect(tokenRes.rows.length).toEqual(1);
     expect(cookie).toEqual(expect.any(String));
     expect(res.body).toEqual({
+      role: 2022,
       user: {
         firstName: "u3first",
         lastName: "u3last",

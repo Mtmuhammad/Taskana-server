@@ -49,6 +49,7 @@ router.post(
       const accessToken = createToken(user);
       const refreshToken = createRefreshToken(user);
       await User.saveRefreshToken(user.empNumber, refreshToken);
+      const role = user.isAdmin ? 1990 : 2022;
 
       res.cookie("jwt", refreshToken, {
         httpOnly: true,
@@ -59,7 +60,7 @@ router.post(
 
       return res
         .status(201)
-        .json({ user, token: accessToken });
+        .json({ role, user, token: accessToken });
     } catch (err) {
       return next(err);
     }

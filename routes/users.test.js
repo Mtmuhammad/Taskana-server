@@ -38,6 +38,7 @@ describe("POST /users", () => {
       .set("authorization", `Bearer ${u1Token}`);
     expect(res.statusCode).toEqual(201);
     expect(res.body).toEqual({
+      role: 2022,
       user: {
         empNumber: 103,
         firstName: "Marcellus",
@@ -64,6 +65,7 @@ describe("POST /users", () => {
       .set("authorization", `Bearer ${u1Token}`);
     expect(res.statusCode).toBe(201);
     expect(res.body).toEqual({
+      role: 1990,
       user: {
         empNumber: 104,
         firstName: "Marcellus",
