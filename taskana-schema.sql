@@ -39,3 +39,4 @@ CREATE TABLE tickets (
 );
 
 ALTER SEQUENCE users_emp_number_seq restart with 100;
+ALTER SEQUENCE tickets_id_seq restart with 100000;

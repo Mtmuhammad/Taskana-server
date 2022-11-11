@@ -60,7 +60,7 @@ class Project {
          to_char(deadline, 'MM-DD-YYYY') AS "deadline",
          status
       FROM projects
-      ORDER BY deadline DESC`);
+      ORDER BY deadline ASC`);
 
     return result.rows;
   }

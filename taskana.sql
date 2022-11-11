@@ -6,6 +6,7 @@ CREATE DATABASE taskana;
 \connect taskana
 
 \i taskana-schema.sql
+\i taskana-seed.sql
 
 
 

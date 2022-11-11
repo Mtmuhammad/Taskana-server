@@ -16,7 +16,7 @@ async function commonBeforeAll() {
   await db.query(`ALTER SEQUENCE users_emp_number_seq restart with 100;`);
   await db.query(`ALTER SEQUENCE projects_id_seq restart with 1;`);
   await db.query(`ALTER SEQUENCE tasks_id_seq restart with 1;`);
-  await db.query(`ALTER SEQUENCE tickets_id_seq restart with 1;`);
+  await db.query(`ALTER SEQUENCE tickets_id_seq restart with 100000;`);
   await db.query(
     `INSERT INTO users (first_name, last_name, email, password, emp_role, is_admin)
    VALUES ('adminFirst','adminLast', 'admin@yahoo.com', $1, 'Web Developer', TRUE),
