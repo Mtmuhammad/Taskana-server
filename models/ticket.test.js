@@ -27,7 +27,7 @@ describe("create", () => {
   test("should create a new ticket", async () => {
     const ticket = await Ticket.create(newTicket);
     expect(ticket).toEqual({
-      id: 2,
+      id: 100001,
       title: "Internet Not Working",
       description: "The Internet is not working for one a few of the pages.",
       date: getCurrentDate(),
@@ -68,7 +68,7 @@ describe("findAll", () => {
     const tickets = await Ticket.findAll();
     expect(tickets).toEqual([
       {
-        id: 1,
+        id: 100000,
         title: "Search Page Not Working",
         description: "Users unable to use search without crashing.",
         date: getCurrentDate(),
@@ -78,7 +78,7 @@ describe("findAll", () => {
         createdBy: 100,
       },
       {
-        id: 4,
+        id: 100003,
         title: "Internet Not Working",
         description: "The Internet is not working for one a few of the pages.",
         date: getCurrentDate(),
@@ -92,12 +92,51 @@ describe("findAll", () => {
   });
 });
 
+
+/********** findAssigned ***********/
+
+describe("findAssigned", () => {
+  const newTicket = {
+    title: "Internet Not Working",
+    description: "The Internet is not working for one a few of the pages.",
+    projectId: 1,
+    createdBy: 100,
+    assignedTo: 101,
+  };
+
+  test("should find all tickets", async () => {
+    await Ticket.create(newTicket);
+    const tickets = await Ticket.findAssigned(101);
+    expect(tickets).toEqual([
+      {
+        id: 100000,
+        title: "Search Page Not Working",
+        description: "Users unable to use search without crashing.",
+        date: getCurrentDate(),
+        status: "Open",
+        projectId: 1,
+        createdBy: 100,
+      },
+      {
+        id: 100004,
+        title: "Internet Not Working",
+        description: "The Internet is not working for one a few of the pages.",
+        date: getCurrentDate(),
+        status: "Open",
+        projectId: 1,
+        createdBy: 100,
+      },
+    ]);
+    expect(tickets.length).toBe(2);
+  });
+});
+
 /********** get ***********/
 describe("get", () => {
   test("should get data on a single ticket", async () => {
-    const ticket = await Ticket.get(1);
+    const ticket = await Ticket.get(100000);
     expect(ticket).toEqual({
-      id: 1,
+      id: 100000,
       title: "Search Page Not Working",
       description: "Users unable to use search without crashing.",
       status: "Open",
@@ -121,9 +160,9 @@ describe("get", () => {
 /********** update ***********/
 describe("update", () => {
   test("should update one ticket field", async () => {
-    const ticket = await Ticket.update(1, { title: "Search Page Down!" });
+    const ticket = await Ticket.update(100000, { title: "Search Page Down!" });
     expect(ticket).toEqual({
-      id: 1,
+      id: 100000,
       title: "Search Page Down!",
       description: "Users unable to use search without crashing.",
       status: "Open",
@@ -134,13 +173,13 @@ describe("update", () => {
     });
   });
   test("should update multiple ticket fields", async () => {
-    const ticket = await Ticket.update(1, {
+    const ticket = await Ticket.update(100000, {
       title: "Search Page Down!",
       description: "Search Page not functioning properly for all pages.",
       status: "Review",
     });
     expect(ticket).toEqual({
-      id: 1,
+      id: 100000,
       title: "Search Page Down!",
       description: "Search Page not functioning properly for all pages.",
       status: "Review",
@@ -165,7 +204,7 @@ describe("update", () => {
 
 describe("remove", () => {
   test("should remove ticket", async () => {
-    await Ticket.remove(1);
+    await Ticket.remove(100000);
     const res = await db.query("SELECT * FROM tickets WHERE id=1");
     expect(res.rows.length).toEqual(0);
   });

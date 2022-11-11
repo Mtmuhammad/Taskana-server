@@ -39,7 +39,7 @@ describe("POST /tickets", () => {
     expect(res.statusCode).toEqual(201);
     expect(res.body).toEqual({
       ticket: {
-        id: 2,
+        id: 100001,
         title: "Navbar brand not working",
         description:
           "The logo in the navbar is not redirecting to the homepage.",
@@ -93,7 +93,7 @@ describe("GET /tickets", () => {
     expect(res.body).toEqual({
       tickets: [
         {
-          id: 1,
+          id: 100000,
           title: "Search Page Not Working",
           description: "Users unable to use search without crashing.",
           date: getCurrentDate(),
@@ -103,7 +103,7 @@ describe("GET /tickets", () => {
           createdBy: 100,
         },
         {
-          id: 3,
+          id: 100002,
           title: "Navbar brand not working",
           description:
             "The logo in the navbar is not redirecting to the homepage.",
@@ -130,7 +130,7 @@ describe("GET /tickets", () => {
     expect(res.body).toEqual({
       tickets: [
         {
-          id: 1,
+          id: 100000,
           title: "Search Page Not Working",
           description: "Users unable to use search without crashing.",
           date: getCurrentDate(),
@@ -140,7 +140,7 @@ describe("GET /tickets", () => {
           createdBy: 100,
         },
         {
-          id: 4,
+          id: 100003,
           title: "Navbar brand not working",
           description:
             "The logo in the navbar is not redirecting to the homepage.",
@@ -184,12 +184,12 @@ describe("GET /tickets", () => {
 describe("GET /tickets/:id", () => {
   test("should work for admin user to get a single ticket", async () => {
     const res = await request(app)
-      .get("/tickets/1")
+      .get("/tickets/100000")
       .set("authorization", `Bearer ${u1Token}`);
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual({
       ticket: {
-        id: 1,
+        id: 100000,
         title: "Search Page Not Working",
         description: "Users unable to use search without crashing.",
         status: "Open",
@@ -202,12 +202,12 @@ describe("GET /tickets/:id", () => {
   });
   test("should work for non-admin user to get a ticket", async () => {
     const res = await request(app)
-      .get("/tickets/1")
+      .get("/tickets/100000")
       .set("authorization", `Bearer ${u2Token}`);
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual({
       ticket: {
-        id: 1,
+        id: 100000,
         title: "Search Page Not Working",
         description: "Users unable to use search without crashing.",
         status: "Open",
@@ -234,13 +234,13 @@ describe("GET /tickets/:id", () => {
 describe("PATCH /tickets/:id", () => {
   test("should update one ticket field for admin user", async () => {
     const res = await request(app)
-      .patch("/tickets/1")
+      .patch("/tickets/100000")
       .send({ title: "Taskana" })
       .set("authorization", `Bearer ${u1Token}`);
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual({
       ticket: {
-        id: 1,
+        id: 100000,
         title: "Taskana",
         description: "Users unable to use search without crashing.",
         status: "Open",
@@ -253,13 +253,13 @@ describe("PATCH /tickets/:id", () => {
   });
   test("should update one ticket field for user who created the ticket", async () => {
     const res = await request(app)
-      .patch("/tickets/1")
+      .patch("/tickets/100000")
       .send({ title: "Taskana" })
       .set("authorization", `Bearer ${u1Token}`);
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual({
       ticket: {
-        id: 1,
+        id: 100000,
         title: "Taskana",
         description: "Users unable to use search without crashing.",
         status: "Open",
@@ -272,13 +272,13 @@ describe("PATCH /tickets/:id", () => {
   });
   test("should update one ticket field for user who was assigned the ticket", async () => {
     const res = await request(app)
-      .patch("/tickets/1")
+      .patch("/tickets/100000")
       .send({ title: "Taskana" })
       .set("authorization", `Bearer ${u3Token}`);
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual({
       ticket: {
-        id: 1,
+        id: 100000,
         title: "Taskana",
         description: "Users unable to use search without crashing.",
         status: "Open",
@@ -292,7 +292,7 @@ describe("PATCH /tickets/:id", () => {
 
   test("should update multiple ticket fields for admin user", async () => {
     const res = await request(app)
-      .patch("/tickets/1")
+      .patch("/tickets/100000")
       .send({
         title: "Taskana",
         description: "This is new sample test text for tickets.",
@@ -301,29 +301,7 @@ describe("PATCH /tickets/:id", () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual({
       ticket: {
-        id: 1,
-        title: "Taskana",
-        description: "This is new sample test text for tickets.",
-        status: "Open",
-        createdBy: 100,
-        date: getCurrentDate(),
-        projectId: 1,
-        assignedTo: 101,
-      },
-    });
-  });
-  test("should update multiple ticket fields for user who created the ticket", async () => {
-    const res = await request(app)
-      .patch("/tickets/1")
-      .send({
-        title: "Taskana",
-        description: "This is new sample test text for tickets.",
-      })
-      .set("authorization", `Bearer ${u1Token}`);
-    expect(res.statusCode).toEqual(200);
-    expect(res.body).toEqual({
-      ticket: {
-        id: 1,
+        id: 100000,
         title: "Taskana",
         description: "This is new sample test text for tickets.",
         status: "Open",
@@ -336,7 +314,7 @@ describe("PATCH /tickets/:id", () => {
   });
   test("should update multiple ticket fields for user who was assigned the ticket", async () => {
     const res = await request(app)
-      .patch("/tickets/1")
+      .patch("/tickets/100000")
       .send({
         title: "Taskana",
         description: "This is new sample test text for tickets.",
@@ -345,7 +323,7 @@ describe("PATCH /tickets/:id", () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual({
       ticket: {
-        id: 1,
+        id: 100000,
         title: "Taskana",
         description: "This is new sample test text for tickets.",
         status: "Open",
@@ -358,26 +336,26 @@ describe("PATCH /tickets/:id", () => {
   });
   test("should throw BadRequestError for invalid data", async () => {
     const res = await request(app)
-      .patch("/tickets/1")
+      .patch("/tickets/100000")
       .send({ title: 21, description: "This is-wrong data." })
       .set("authorization", `Bearer ${u1Token}`);
     expect(res.statusCode).toEqual(400);
   });
   test("should throw UnauthorizedError for user who did not create ticket, or wasn't assigned", async () => {
     const res = await request(app)
-      .patch("/tickets/1")
+      .patch("/tickets/100000")
       .send({ title: "Taskana" })
       .set("authorization", `Bearer ${u2Token}`);
     expect(res.statusCode).toEqual(401);
   });
   test("should throw UnauthorizedError for anon user", async () => {
     const res = await request(app)
-      .patch("/tickets/1")
+      .patch("/tickets/100000")
       .send({ name: "Homestew", description: "This is a React recipe app." });
     expect(res.statusCode).toEqual(401);
   });
 
-  test("should throw NotFoundError if task not found", async () => {
+  test("should throw NotFoundError if ticket not found", async () => {
     const res = await request(app)
       .patch("/tickets/4")
       .send({ title: "Homestew", description: "This is a React recipe app." })
@@ -391,23 +369,23 @@ describe("PATCH /tickets/:id", () => {
 describe("DELETE /tickets/:id", () => {
   test("should remove ticket if admin user", async () => {
     const res = await request(app)
-      .delete("/tickets/1")
+      .delete("/tickets/100000")
       .set("authorization", `Bearer ${u4Token}`);
-    expect(res.body).toEqual({ deleted: "Ticket number 1" });
+    expect(res.body).toEqual({ deleted: "Ticket number 100000" });
   });
   test("should remove ticket if user who created ticket user", async () => {
     const res = await request(app)
-      .delete("/tickets/1")
+      .delete("/tickets/100000")
       .set("authorization", `Bearer ${u1Token}`);
-    expect(res.body).toEqual({ deleted: "Ticket number 1" });
+    expect(res.body).toEqual({ deleted: "Ticket number 100000" });
   });
   test("should throw UnauthorizedError if anon user", async () => {
-    const res = await request(app).delete("/tickets/1");
+    const res = await request(app).delete("/tickets/100000");
     expect(res.statusCode).toBe(401);
   });
   test("should throw ForbiddenError if user not admin ", async () => {
     const res = await request(app)
-      .delete("/tickets/1")
+      .delete("/tickets/100000")
       .set("authorization", `Bearer ${u2Token}`);
     expect(res.statusCode).toBe(403);
   });

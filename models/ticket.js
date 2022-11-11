@@ -68,8 +68,31 @@ class Ticket {
         created_by AS "createdBy",
         assigned_to AS "assignedTo"
       FROM tickets 
-      ORDER BY date DESC`
+      ORDER BY id`
     );
+
+    return result.rows;
+  }
+
+  /** Finds all assigned tickets for given user 
+   *
+   * Returns => [{id, title, description, status, date, projectId, createdBy}, {...}]
+   */
+
+  static async findAssigned(empNumber) {
+    const result = await db.query(
+      `SELECT 
+        id,
+        title,
+        description,
+        status,
+        to_char(date, 'MM-DD-YYYY') AS "date",
+        project_id AS "projectId",
+        created_by AS "createdBy"
+      FROM tickets 
+      WHERE assigned_to = $1
+      ORDER BY id`
+    , [empNumber]);
 
     return result.rows;
   }

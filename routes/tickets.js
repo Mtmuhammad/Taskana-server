@@ -8,6 +8,7 @@ const {
   authenticateJWT,
   ensureLoggedIn,
   ensureIsAdmin,
+  ensureCorrectUserOrAdmin
 } = require("../middleware/auth");
 const { BadRequestError, UnauthorizedError } = require("../expressError");
 const Ticket = require("../models/ticket");
@@ -68,6 +69,22 @@ router.post(
 router.get("/", ensureLoggedIn, async (req, res, next) => {
   try {
     const tickets = await Ticket.findAll();
+    return res.json({ tickets });
+  } catch (err) {
+    return next(err);
+  }
+});
+
+/** Get /assigned/:empNumber => {tickets: [{id, title, description, date, status, projectId, assignedTo }, {...}]}
+ *
+ * Returns list of all tickets assigned to given user.
+ *
+ * Authorization required: login
+ */
+
+router.get("/assigned/:empNumber", ensureLoggedIn, ensureCorrectUserOrAdmin, async (req, res, next) => {
+  try {
+    const tickets = await Ticket.findAssigned(req.params.empNumber);
     return res.json({ tickets });
   } catch (err) {
     return next(err);

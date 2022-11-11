@@ -71,17 +71,17 @@ describe("findAll", () => {
     const projects = await Project.findAll();
     expect(projects).toEqual([
       {
-        id: 3,
-        name: "Second Project",
-        date: getCurrentDate(),
-        deadline: "02-09-2023",
-        status: "Open",
-      },
-      {
         id: 1,
         name: "test project 1",
         date: getCurrentDate(),
         deadline: "01-11-2023",
+        status: "Open",
+      },
+      {
+        id: 3,
+        name: "Second Project",
+        date: getCurrentDate(),
+        deadline: "02-09-2023",
         status: "Open",
       },
     ]);
