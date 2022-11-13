@@ -267,8 +267,11 @@ describe("findToken", () => {
     const foundUser = await User.findToken(u1refreshToken);
     expect(foundUser).toEqual({
       empNumber: 100,
-      email: "admin@yahoo.com",
+      empRole: "Web Developer",
+      firstName: "adminFirst",
       isAdmin: true,
+      lastName: "adminLast",
+      email: "admin@yahoo.com",
     });
   });
 
@@ -287,9 +290,11 @@ describe("findToken", () => {
 describe("removeRefreshToken", () => {
   test("should remove refresh token", async () => {
     await User.saveRefreshToken(100, u1refreshToken);
-    await User.removeRefreshToken(100)
-    const res = await db.query(`SELECT token FROM users WHERE emp_number = 100`)
-    expect(res.rows[0]).toEqual({token: null})
+    await User.removeRefreshToken(100);
+    const res = await db.query(
+      `SELECT token FROM users WHERE emp_number = 100`
+    );
+    expect(res.rows[0]).toEqual({ token: null });
   });
 
   test("should throw not found", async () => {

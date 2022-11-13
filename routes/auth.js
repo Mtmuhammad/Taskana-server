@@ -121,7 +121,7 @@ router.get("/refresh", async (req, res, next) => {
         const accessToken = createToken(foundUser);
         res
           .status(202)
-          .json({ isAdmin: foundUser.isAdmin, token: accessToken });
+          .json({ user:foundUser, token: accessToken });
       }
     );
   } catch (err) {

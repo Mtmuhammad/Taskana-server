@@ -241,7 +241,13 @@ class User {
   
     static async findToken(refreshToken) {
       let result = await db.query(
-        `SELECT emp_number AS "empNumber", email, is_admin AS "isAdmin" 
+        `SELECT 
+        emp_number AS "empNumber", 
+        email, 
+        first_name AS "firstName", 
+        last_name AS "lastName",
+        is_admin AS "isAdmin",
+        emp_role AS "empRole"
       FROM users 
       WHERE token = $1`,
         [refreshToken]

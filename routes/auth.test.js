@@ -173,7 +173,17 @@ describe("GET /auth/refresh", () => {
     const res = await request(app)
       .get("/auth/refresh")
       .set("Cookie", [`jwt=${u1refreshToken}`]);
-    expect(res.body).toEqual({ isAdmin: true, token: expect.any(String) });
+    expect(res.body).toEqual({
+      user: {
+        email: "admintest@email.com",
+        empNumber: 100,
+        empRole: "Web Developer",
+        firstName: "adminFirst",
+        isAdmin: true,
+        lastName: "adminLast",
+      },
+      token: expect.any(String),
+    });
     expect(res.status).toEqual(202);
   });
   test("should refresh non-admin user access token", async () => {
@@ -181,7 +191,14 @@ describe("GET /auth/refresh", () => {
     const res = await request(app)
       .get("/auth/refresh")
       .set("Cookie", [`jwt=${u2refreshToken}`]);
-    expect(res.body).toEqual({ isAdmin: false, token: expect.any(String) });
+    expect(res.body).toEqual({ user: {
+      email: "u1@yahoo.com",
+      empNumber: 101,
+      empRole: "UI/UX Developer",
+      firstName: "u1first",
+      isAdmin: false,
+      lastName: "u1last",
+    }, token: expect.any(String) });
     expect(res.status).toEqual(202);
   });
   test("should throw UnauthorizedError if anon user (no cookie)", async () => {
