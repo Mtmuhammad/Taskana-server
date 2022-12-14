@@ -261,7 +261,7 @@ INSERT INTO tasks (title, description, important, status, created_by)
  ('Test Edit user modal', 'Write tests for modal to edit a new user.','Complete', 2, 100, 102, '11-21-2022'),
  ('Delete user modal', 'Code modal to delete a new user.','Complete', 2, 100, 100, '11-22-2022'),
  ('Test Delete user modal', 'Write tests for modal to delete a new user.','Complete', 2, 100, 100, '11-22-2022'),
- ('Home Page Review', 'Review home page. Ensure responsiveness and styling.','Open', 1, 101, 103, '11-23-2022');
+ ('Home Page Review', 'Review home page. Ensure responsiveness and styling.','Complete', 2, 101, 103, '11-23-2022');
 
 
  INSERT INTO tickets (title, description, status, project_id, created_by, assigned_to, date) 
@@ -269,8 +269,8 @@ INSERT INTO tasks (title, description, important, status, created_by)
  ('Test Login Component', 'Write tests for login component.','Complete', 2, 100, 100, '11-24-2022'),
  ('Register Component', 'Code component to show register page and form for new users.','Complete', 2, 100, 101, '11-24-2022'),
  ('Test Register Component', 'Write tests for register component.','Complete', 2, 100, 101, '11-24-2022'),
- ('Login Page Review', 'Review login page. Ensure responsiveness and styling.','Open', 2, 101, 103, '11-25-2022'),
- ('Register Page Review', 'Review register page. Ensure responsiveness and styling.','Open', 2, 101, 103, '11-25-2022');
+ ('Login Page Review', 'Review login page. Ensure responsiveness and styling.','Complete', 2, 101, 103, '11-25-2022'),
+ ('Register Page Review', 'Review register page. Ensure responsiveness and styling.','Complete', 2, 101, 103, '11-25-2022');
 
 
  INSERT INTO tickets (title, description, status, project_id, created_by, assigned_to, date) 
@@ -284,7 +284,7 @@ INSERT INTO tasks (title, description, important, status, created_by)
  ('Test Edit project modal', 'Write tests for modal to edit a new project.','Complete', 2, 100, 102, '11-27-2022'),
  ('Delete project modal', 'Code modal to delete a new project.','Complete', 2, 100, 100, '11-28-2022'),
  ('Test Delete project modal', 'Write tests for modal to delete a new project.','Complete', 2, 100, 100, '11-28-2022'),
- ('Project Page Review', 'Review project page. Ensure responsiveness and styling.','Open', 2, 101, 103, '11-29-2022');
+ ('Project Page Review', 'Review project page. Ensure responsiveness and styling.','Complete', 2, 101, 103, '11-29-2022');
 
 
  INSERT INTO tickets (title, description, status, project_id, created_by, assigned_to, date) 
@@ -302,7 +302,7 @@ INSERT INTO tasks (title, description, important, status, created_by)
  ('Test Edit task modal', 'Write tests for modal to edit a new task.','Complete', 2, 100, 102, '12-02-2022'),
  ('Delete task modal', 'Code modal to delete a new task.','Complete', 2, 100, 100, '12-03-2022'),
  ('Test Delete task modal', 'Write tests for modal to delete a new task.','Complete', 2, 100, 100, '12-03-2022'),
- ('Task Page Review', 'Review task page. Ensure responsiveness and styling.','Open', 2, 101, 103, '12-04-2022');
+ ('Task Page Review', 'Review task page. Ensure responsiveness and styling.','Complete', 2, 101, 103, '12-04-2022');
 
 
  INSERT INTO tickets (title, description, status, project_id, created_by, assigned_to, date) 
@@ -318,7 +318,7 @@ INSERT INTO tasks (title, description, important, status, created_by)
  ('Test Edit ticket modal', 'Write tests for modal to edit a new ticket.','Complete', 2, 100, 102, '12-07-2022'),
  ('Delete ticket modal', 'Code modal to delete a new ticket.','Complete', 2, 100, 100, '12-07-2022'),
  ('Test Delete ticket modal', 'Write tests for modal to delete a new ticket.','Complete', 2, 100, 100, '12-07-2022'),
- ('Ticket Page Review', 'Review ticket page. Ensure responsiveness and styling.','Open', 2, 101, 103, '12-08-2022'),
+ ('Ticket Page Review', 'Review ticket page. Ensure responsiveness and styling.','Complete', 2, 101, 103, '12-08-2022'),
  ('Taskana Review', 'Review taskana to ensure consistency.','Open', 2, 101, 103, '12-08-2022'),
  ('Taskana Deploy', 'Deploy Taskana.','Open', 2, 101, 101, '12-09-2022');
 
