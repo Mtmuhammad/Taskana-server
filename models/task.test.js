@@ -67,21 +67,22 @@ describe("findAll", () => {
       {
         createdBy: 100,
         date: getCurrentDate(),
-        description: "Sample Text",
-        id: 1,
-        important: true,
-        status: "Open",
-        title: "Code routes for API",
-      },
-      {
-        createdBy: 100,
-        date: getCurrentDate(),
         description: "This is the sample text for first task in test project.",
         id: 4,
         important: true,
         status: "Open",
         title: "Test Task title",
       },
+      {
+        createdBy: 100,
+        date: getCurrentDate(),
+        description: "Sample Text",
+        id: 1,
+        important: true,
+        status: "Open",
+        title: "Code routes for API",
+      },
+      
     ]);
     expect(tasks.length).toBe(2);
   });

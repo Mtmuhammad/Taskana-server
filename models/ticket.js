@@ -68,7 +68,7 @@ class Ticket {
         created_by AS "createdBy",
         assigned_to AS "assignedTo"
       FROM tickets 
-      ORDER BY id`
+      ORDER BY id DESC`
     );
 
     return result.rows;

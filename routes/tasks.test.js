@@ -121,15 +121,6 @@ describe("GET /tasks/:empNumber", () => {
     expect(res.body).toEqual({
       tasks: [
         {
-          id: 1,
-          title: "Code routes for API",
-          description: "Sample Text",
-          status: "Open",
-          important: true,
-          date: getCurrentDate(),
-          createdBy: 100,
-        },
-        {
           id: 4,
           title: "Home Page Design",
           description: "Design landing page for homestew react.",
@@ -138,6 +129,16 @@ describe("GET /tasks/:empNumber", () => {
           date: getCurrentDate(),
           createdBy: 100,
         },
+        {
+          id: 1,
+          title: "Code routes for API",
+          description: "Sample Text",
+          status: "Open",
+          important: true,
+          date: getCurrentDate(),
+          createdBy: 100,
+        },
+        
       ],
     });
   });
@@ -159,15 +160,6 @@ describe("GET /tasks/:empNumber", () => {
     expect(res.body).toEqual({
       tasks: [
         {
-          id: 5,
-          title: "User test 1",
-          description: "User sample text 1.",
-          status: "Open",
-          important: false,
-          date: getCurrentDate(),
-          createdBy: 101,
-        },
-        {
           id: 6,
           title: "User test 2",
           description: "User sample text 2.",
@@ -176,6 +168,16 @@ describe("GET /tasks/:empNumber", () => {
           date: getCurrentDate(),
           createdBy: 101,
         },
+        {
+          id: 5,
+          title: "User test 1",
+          description: "User sample text 1.",
+          status: "Open",
+          important: false,
+          date: getCurrentDate(),
+          createdBy: 101,
+        },
+        
       ],
     });
   });

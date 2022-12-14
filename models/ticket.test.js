@@ -68,9 +68,9 @@ describe("findAll", () => {
     const tickets = await Ticket.findAll();
     expect(tickets).toEqual([
       {
-        id: 100000,
-        title: "Search Page Not Working",
-        description: "Users unable to use search without crashing.",
+        id: 100003,
+        title: "Internet Not Working",
+        description: "The Internet is not working for one a few of the pages.",
         date: getCurrentDate(),
         status: "Open",
         projectId: 1,
@@ -78,9 +78,9 @@ describe("findAll", () => {
         createdBy: 100,
       },
       {
-        id: 100003,
-        title: "Internet Not Working",
-        description: "The Internet is not working for one a few of the pages.",
+        id: 100000,
+        title: "Search Page Not Working",
+        description: "Users unable to use search without crashing.",
         date: getCurrentDate(),
         status: "Open",
         projectId: 1,
@@ -91,7 +91,6 @@ describe("findAll", () => {
     expect(tickets.length).toBe(2);
   });
 });
-
 
 /********** findAssigned ***********/
 

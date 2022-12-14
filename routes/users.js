@@ -27,7 +27,6 @@ const router = express.Router();
  * This returns the newly created user and an auth token:
  * {user: {firstName, lastName, email, empRole, isAdmin}}
  * 
- * Saves refreshToken to database and stored in "jwt" cookie.
  * 
  Auth required: login and isAdmin: true (must be an administrator)
 */
@@ -51,12 +50,6 @@ router.post(
       await User.saveRefreshToken(user.empNumber, refreshToken);
       const role = user.isAdmin ? 1990 : 2022;
 
-      res.cookie("jwt", refreshToken, {
-        httpOnly: true,
-        maxAge: 60 * 60 * 24 * 1000,
-        secure: true,
-        sameSite: "None",
-      });
 
       return res
         .status(201)

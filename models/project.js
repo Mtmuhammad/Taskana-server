@@ -60,7 +60,7 @@ class Project {
          to_char(deadline, 'MM-DD-YYYY') AS "deadline",
          status
       FROM projects
-      ORDER BY deadline ASC`);
+      ORDER BY date ASC`);
 
     return result.rows;
   }
@@ -101,9 +101,9 @@ class Project {
    * However, only admin users can update project fields.
    *
    * Data can include:
-   *  {name, description, deadline, status, description}
+   *  {name, description, deadline, status}
    *
-   * Returns => {name, description, date, deadline, status, description}
+   * Returns => {name, description, date, deadline, status}
    *
    * Throws NotFoundError if no found
    */

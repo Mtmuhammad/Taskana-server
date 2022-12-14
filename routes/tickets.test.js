@@ -93,16 +93,6 @@ describe("GET /tickets", () => {
     expect(res.body).toEqual({
       tickets: [
         {
-          id: 100000,
-          title: "Search Page Not Working",
-          description: "Users unable to use search without crashing.",
-          date: getCurrentDate(),
-          status: "Open",
-          projectId: 1,
-          assignedTo: 101,
-          createdBy: 100,
-        },
-        {
           id: 100002,
           title: "Navbar brand not working",
           description:
@@ -113,6 +103,17 @@ describe("GET /tickets", () => {
           assignedTo: null,
           createdBy: 100,
         },
+        {
+          id: 100000,
+          title: "Search Page Not Working",
+          description: "Users unable to use search without crashing.",
+          date: getCurrentDate(),
+          status: "Open",
+          projectId: 1,
+          assignedTo: 101,
+          createdBy: 100,
+        },
+       
       ],
     });
   });
@@ -130,16 +131,6 @@ describe("GET /tickets", () => {
     expect(res.body).toEqual({
       tickets: [
         {
-          id: 100000,
-          title: "Search Page Not Working",
-          description: "Users unable to use search without crashing.",
-          date: getCurrentDate(),
-          status: "Open",
-          projectId: 1,
-          assignedTo: 101,
-          createdBy: 100,
-        },
-        {
           id: 100003,
           title: "Navbar brand not working",
           description:
@@ -150,6 +141,17 @@ describe("GET /tickets", () => {
           assignedTo: null,
           createdBy: 100,
         },
+        {
+          id: 100000,
+          title: "Search Page Not Working",
+          description: "Users unable to use search without crashing.",
+          date: getCurrentDate(),
+          status: "Open",
+          projectId: 1,
+          assignedTo: 101,
+          createdBy: 100,
+        },
+        
       ],
     });
   });

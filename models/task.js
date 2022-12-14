@@ -62,7 +62,7 @@ class Task {
                                     created_by AS "createdBy"
                                  FROM tasks
                                  WHERE created_by = $1
-                                 ORDER BY date DESC`, [empNumber]);
+                                 ORDER BY id DESC`, [empNumber]);
 
       if (!result.rows) throw new NotFoundError(`Invalid user!`)
     return result.rows;
