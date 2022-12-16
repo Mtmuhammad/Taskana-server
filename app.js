@@ -21,7 +21,7 @@ const app = express();
 app.use(morgan("tiny"));
 
 // Cross Origin Resource Sharing
-app.use(cors({credentials: true, origin: ['http://localhost:3000','https://taskana.up.railway.app' ]}));
+app.use(cors({credentials: true, origin: ['http://localhost:3000','https://taskana-management.netlify.app/' ]}));
 
 // built in middleware for json
 app.use(express.json());
