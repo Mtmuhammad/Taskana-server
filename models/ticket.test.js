@@ -76,6 +76,8 @@ describe("findAll", () => {
         projectId: 1,
         assignedTo: 101,
         createdBy: 100,
+        assignedName: "u1first u1last",
+        projectName: "test project 1"
       },
       {
         id: 100000,
@@ -86,6 +88,8 @@ describe("findAll", () => {
         projectId: 1,
         assignedTo: 101,
         createdBy: 100,
+        assignedName: "u1first u1last",
+        projectName: "test project 1"
       },
     ]);
     expect(tickets.length).toBe(2);
@@ -108,15 +112,6 @@ describe("findAssigned", () => {
     const tickets = await Ticket.findAssigned(101);
     expect(tickets).toEqual([
       {
-        id: 100000,
-        title: "Search Page Not Working",
-        description: "Users unable to use search without crashing.",
-        date: getCurrentDate(),
-        status: "Open",
-        projectId: 1,
-        createdBy: 100,
-      },
-      {
         id: 100004,
         title: "Internet Not Working",
         description: "The Internet is not working for one a few of the pages.",
@@ -124,7 +119,21 @@ describe("findAssigned", () => {
         status: "Open",
         projectId: 1,
         createdBy: 100,
+        assignedName: "u1first u1last",
+        projectName: "test project 1"
       },
+      {
+        id: 100000,
+        title: "Search Page Not Working",
+        description: "Users unable to use search without crashing.",
+        date: getCurrentDate(),
+        status: "Open",
+        projectId: 1,
+        createdBy: 100,
+        assignedName: "u1first u1last",
+        projectName: "test project 1"
+      },
+      
     ]);
     expect(tickets.length).toBe(2);
   });
@@ -143,6 +152,8 @@ describe("get", () => {
       projectId: 1,
       createdBy: 100,
       assignedTo: 101,
+      assignedName: "u1first u1last",
+      projectName: "test project 1"
     });
   });
 

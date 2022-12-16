@@ -53,28 +53,34 @@ class Ticket {
 
   /** Finds all tickets
    *
-   * Returns => [{id, title, description, status, date, projectId, createdBy, assignedTo}, {...}]
+   * Returns => [{id, title, description, status, date, projectId, createdBy, assignedTo, assignedName, projectName }, {...}]
    */
 
   static async findAll() {
     const result = await db.query(
       `SELECT 
-        id,
-        title,
-        description,
-        status,
-        to_char(date, 'MM-DD-YYYY') AS "date",
-        project_id AS "projectId",
-        created_by AS "createdBy",
-        assigned_to AS "assignedTo"
-      FROM tickets 
-      ORDER BY id DESC`
+        t.id,
+        t.title,
+        t.description,
+        t.status,
+        to_char(t.date, 'MM-DD-YYYY') AS "date",
+        t.project_id AS "projectId",
+        p.name AS "projectName",
+        t.created_by AS "createdBy",
+        t.assigned_to AS "assignedTo",
+        concat(u.first_name, ' ', u.last_name) AS "assignedName"
+        FROM tickets t
+        JOIN projects p
+        ON t.project_id = p.id
+        JOIN users u
+        ON t.assigned_to = u.emp_number
+        ORDER BY t.id DESC`
     );
 
     return result.rows;
   }
 
-  /** Finds all assigned tickets for given user 
+  /** Finds all assigned tickets for given user
    *
    * Returns => [{id, title, description, status, date, projectId, createdBy}, {...}]
    */
@@ -82,17 +88,24 @@ class Ticket {
   static async findAssigned(empNumber) {
     const result = await db.query(
       `SELECT 
-        id,
-        title,
-        description,
-        status,
-        to_char(date, 'MM-DD-YYYY') AS "date",
-        project_id AS "projectId",
-        created_by AS "createdBy"
-      FROM tickets 
-      WHERE assigned_to = $1
-      ORDER BY id`
-    , [empNumber]);
+        t.id,
+        t.title,
+        t.description,
+        t.status,
+        to_char(t.date, 'MM-DD-YYYY') AS "date",
+        t.project_id AS "projectId",
+        p.name AS "projectName",
+        t.created_by AS "createdBy",
+        concat(u.first_name, ' ', u.last_name) AS "assignedName"
+        FROM tickets t
+        JOIN projects p
+        ON t.project_id = p.id
+        JOIN users u
+        ON t.assigned_to = u.emp_number
+        WHERE t.assigned_to = $1
+        ORDER BY t.id DESC`,
+      [empNumber]
+    );
 
     return result.rows;
   }
@@ -106,18 +119,24 @@ class Ticket {
 
   static async get(id) {
     const result = await db.query(
-      `
-   SELECT
-      id,
-      title, 
-      description,
-      status,
-      to_char(date, 'MM-DD-YYYY') AS "date",
-      project_id AS "projectId",
-      created_by AS "createdBy",
-      assigned_to AS "assignedTo"
-    FROM tickets
-    WHERE id = $1`,
+      `SELECT 
+      t.id,
+      t.title,
+      t.description,
+      t.status,
+      to_char(t.date, 'MM-DD-YYYY') AS "date",
+      t.project_id AS "projectId",
+      p.name AS "projectName",
+      t.created_by AS "createdBy",
+      t.assigned_to AS "assignedTo",
+      concat(u.first_name, ' ', u.last_name) AS "assignedName"
+      FROM tickets t
+      JOIN projects p
+      ON t.project_id = p.id
+      JOIN users u
+      ON t.assigned_to = u.emp_number
+      WHERE t.id = $1
+      ORDER BY t.id DESC`,
       [id]
     );
 

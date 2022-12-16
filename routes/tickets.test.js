@@ -78,44 +78,48 @@ describe("GET /tickets", () => {
     description: "The logo in the navbar is not redirecting to the homepage.",
     projectId: 1,
     createdBy: 100,
+    assignedTo: 101
   };
   test("should work for admin user to get all tickets", async () => {
     await request(app)
       .post("/tickets")
       .send(newTicket)
       .set("authorization", `Bearer ${u1Token}`);
-
+   
     const res = await request(app)
       .get("/tickets")
       .set("authorization", `Bearer ${u1Token}`);
 
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual({
-      tickets: [
-        {
-          id: 100002,
-          title: "Navbar brand not working",
-          description:
-            "The logo in the navbar is not redirecting to the homepage.",
-          date: getCurrentDate(),
-          status: "Open",
-          projectId: 1,
-          assignedTo: null,
-          createdBy: 100,
-        },
-        {
-          id: 100000,
-          title: "Search Page Not Working",
-          description: "Users unable to use search without crashing.",
-          date: getCurrentDate(),
-          status: "Open",
-          projectId: 1,
-          assignedTo: 101,
-          createdBy: 100,
-        },
-       
-      ],
-    });
+          tickets: [
+            {
+              id: 100002,
+              title: "Navbar brand not working",
+              description:
+                "The logo in the navbar is not redirecting to the homepage.",
+              date: getCurrentDate(),
+              status: "Open",
+              projectId: 1,
+              assignedTo: 101,
+              createdBy: 100,
+              assignedName: "u1first u1last",
+              projectName: "test project 1",
+            },
+            {
+              id: 100000,
+              title: "Search Page Not Working",
+              description: "Users unable to use search without crashing.",
+              date: getCurrentDate(),
+              status: "Open",
+              projectId: 1,
+              assignedTo: 101,
+              createdBy: 100,
+              assignedName: "u1first u1last",
+              projectName: "test project 1",
+            },
+          ],
+        })
   });
   test("should work for non-admin user to get all tickets", async () => {
     await request(app)
@@ -138,8 +142,10 @@ describe("GET /tickets", () => {
           date: getCurrentDate(),
           status: "Open",
           projectId: 1,
-          assignedTo: null,
+          assignedTo: 101,
           createdBy: 100,
+          assignedName: "u1first u1last",
+          projectName: "test project 1",
         },
         {
           id: 100000,
@@ -150,8 +156,9 @@ describe("GET /tickets", () => {
           projectId: 1,
           assignedTo: 101,
           createdBy: 100,
+          assignedName: "u1first u1last",
+          projectName: "test project 1",
         },
-        
       ],
     });
   });
@@ -199,6 +206,8 @@ describe("GET /tickets/:id", () => {
         projectId: 1,
         createdBy: 100,
         assignedTo: 101,
+        assignedName: "u1first u1last",
+        projectName: "test project 1",
       },
     });
   });
@@ -217,6 +226,8 @@ describe("GET /tickets/:id", () => {
         projectId: 1,
         createdBy: 100,
         assignedTo: 101,
+        assignedName: "u1first u1last",
+        projectName: "test project 1",
       },
     });
   });

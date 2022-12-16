@@ -8,7 +8,7 @@ const {
   authenticateJWT,
   ensureLoggedIn,
   ensureIsAdmin,
-  ensureCorrectUserOrAdmin
+  ensureCorrectUserOrAdmin,
 } = require("../middleware/auth");
 const { BadRequestError, UnauthorizedError } = require("../expressError");
 const Ticket = require("../models/ticket");
@@ -59,7 +59,7 @@ router.post(
   }
 );
 
-/** Get / => {tickets: [{id, title, description, date, status, projectId, assignedTo }, {...}]}
+/** Get / => {tickets: [{id, title, description, date, status, projectId, assignedTo, assignedName, projectName }, {...}]}
  *
  * Returns list of all tickets.
  *
@@ -75,25 +75,30 @@ router.get("/", ensureLoggedIn, async (req, res, next) => {
   }
 });
 
-/** Get /assigned/:empNumber => {tickets: [{id, title, description, date, status, projectId, assignedTo }, {...}]}
+/** Get /assigned/:empNumber => {tickets: [{id, title, description, date, status, projectId, assignedTo, projectName, assignedName}, {...}]}
  *
  * Returns list of all tickets assigned to given user.
  *
  * Authorization required: login
  */
 
-router.get("/assigned/:empNumber", ensureLoggedIn, ensureCorrectUserOrAdmin, async (req, res, next) => {
-  try {
-    const tickets = await Ticket.findAssigned(req.params.empNumber);
-    return res.json({ tickets });
-  } catch (err) {
-    return next(err);
+router.get(
+  "/assigned/:empNumber",
+  ensureLoggedIn,
+  ensureCorrectUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      const tickets = await Ticket.findAssigned(req.params.empNumber);
+      return res.json({ tickets });
+    } catch (err) {
+      return next(err);
+    }
   }
-});
+);
 
 /** GET /[id] => {ticket}
  *
- * Returns {id, title, description, status, priority, date, projectId, createdBy, assignedTo}
+ * Returns {id, title, description, status, priority, date, projectId, createdBy, assignedTo, assignedName, projectName}
  *
  * Authorization required: login
  */
