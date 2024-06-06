@@ -11,11 +11,13 @@ if (process.env.NODE_ENV === "production") {
       connectionString: getDatabaseUri(),
       ssl: {
          rejectUnauthorized: false
-      }
+      },
+     
    });
 } else {
    db = new Client({
-      connectionString: getDatabaseUri()
+      connectionString: getDatabaseUri(),
+      
    })
 }
 
