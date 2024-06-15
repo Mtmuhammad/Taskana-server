@@ -4,7 +4,6 @@
 
 - [Overview](#overview)
   - [Installation](#installation)
-  - [Screenshot](#screenshot)
   - [Built with](#built-with)
   - [Continued development](#continued-development)
 
