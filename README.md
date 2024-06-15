@@ -4,12 +4,13 @@
 
 - [Overview](#overview)
   - [Installation](#installation)
+  - [Screenshot](#screenshot)
   - [Built with](#built-with)
   - [Continued development](#continued-development)
 
 ### Overview
 
-Taskana is a project management application built general CRUD functions for users, tasks, tickets, and projects. Only admin users
+Taskana is a project management API built general CRUD functions for users, tasks, tickets, and projects. Only admin users
 may create new users or projects, while all other users can edit tickets they are assigned, or tasks they have created.
 
 ### Installation
@@ -42,7 +43,6 @@ To Visit App:
 
 ### Built with
 
-- [React](https://reactjs.org/) - JS library
 - [ExpressJS](https://expressjs.com/) - NodeJS framework
 - [Bcrypt](https://www.npmjs.com/package/bcrypt) - NodeJS library for password hashing
 - [PostgreSQL](https://www.postgresql.org/) - Object-Relational Database
